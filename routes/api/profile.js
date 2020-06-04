@@ -291,4 +291,99 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
     }
 })
 
+//@route   PUT api/profile/education 
+//@desc    Update education in profile  
+//@access  Private 
+
+router.put(
+    '/education',
+    [check('school', 'School is required')
+        .not()
+        .isEmpty(),
+    check('degree', 'Degree is required')
+        .not()
+        .isEmpty(),
+    check('fieldofstudy', 'Field of study is required')
+        .not()
+        .isEmpty(),
+    check('from', 'From date is required')
+        .not()
+        .isEmpty(),
+    ], 
+    auth, 
+    async (req, res) => {
+        //Check for validation errors 
+        const errors = validationResult(req);
+        //If errors, kill and send response with errors array 
+        if(!errors.isEmpty()){
+            return res
+                .status(400)
+                .json({ msg: errors.array() })
+        }
+
+        //Destructure req body 
+        const {
+            school, 
+            degree, 
+            fieldofstudy,
+            from,
+            to,
+            current,
+            description
+        } = req.body; 
+        //Define an object and define it with education properties from req body 
+        const newEdu = {
+            school, 
+            degree, 
+            fieldofstudy,
+            from,
+            to,
+            current,
+            description
+        };
+
+        //All calls to db are wrapped in try/catch block 
+        try {
+            //Find profile by current user id that education will be added to 
+            // current user id is taken from auth middleware 
+            const profile = await Profile.findOne({ user: req.user.id })
+            
+            //Add experience to profile.education array using unshift to add it to beginning 
+            profile.education.unshift(newEdu);
+            //Save the updated instance of the profile with education 
+            await profile.save()
+            //Send response of updated profile 
+            res.json(profile)
+        } catch (error) {
+            console.error(error.message);
+            //500 internal server error 
+            res.status(500).send("server error")
+        }
+
+})
+
+//@route   DELETE api/profile/education/:edu_id
+//@desc    Delete experience from profile
+//@access  Private 
+router.delete('/education/:edu_id', auth, async (req, res) => {
+    //All db queries are wrapped in a try/catch block 
+    try {
+        //Find profile from current user ID 
+        const profile = await Profile.findOne({ user: req.user.id });
+        //Get index of education to remove from education array 
+        // map over education array to create array education ids, then find index of params id to be removed 
+        const removeIndex = profile.education.map(item => item.id).indexOf(req.params.edu_id);
+        //Remove index experience from array 
+        profile.education.splice(removeIndex, 1);        
+        //Save updated profile instance to db 
+        await profile.save()
+        //Send response that user has been deleted 
+        return res.json(profile)
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error')
+    }
+})
+
+
 module.exports = router; 
