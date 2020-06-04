@@ -10,7 +10,8 @@ const app = express();
 connectDB();
 
 //Use middlewear 
-app.use(express.json());
+//Express.json parses the req.body object 
+app.use(express.json({extended: false }));
 
 //Routes
 app.use('/api/users', require('./routes/api/users'))
