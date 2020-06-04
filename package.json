@@ -1,0 +1,19 @@
+{
+  "name": "mern_usa_serveranddb3",
+  "version": "1.0.0",
+  "description": "backend server establishment with node and express",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/EdgarScar/mern_usa_backendpractice2.0.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EdgarScar/mern_usa_backendpractice2.0/issues"
+  },
+  "homepage": "https://github.com/EdgarScar/mern_usa_backendpractice2.0#readme"
+}
