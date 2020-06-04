@@ -4,7 +4,9 @@
   "description": "backend server establishment with node and express",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "server": "nodemon server"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,15 @@
   "bugs": {
     "url": "https://github.com/EdgarScar/mern_usa_backendpractice2.0/issues"
   },
-  "homepage": "https://github.com/EdgarScar/mern_usa_backendpractice2.0#readme"
+  "homepage": "https://github.com/EdgarScar/mern_usa_backendpractice2.0#readme",
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "config": "^3.3.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.5.0",
+    "gravatar": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.17",
+    "request": "^2.88.2"
+  }
 }
