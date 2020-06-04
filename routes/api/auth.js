@@ -5,7 +5,12 @@ const router = express.Router();
 //@desc     
 //@access  Public
 router.get('/', (req, res) => {
-    res.send("Auth route")
+    try {
+        const user = User.find( )
+        
+    } catch (error) {
+        
+    }
 })
 
 module.exports = router; 
